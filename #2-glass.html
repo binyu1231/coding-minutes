@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Coding Minutes Glass</title>
+</head>
+<style>
+body {
+  background: #6383d2;
+}
+
+.glass {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+  width: 220px;
+  height: 160px;
+  margin: 100px auto;
+  position: relative;
+  transition: .2s ease all;
+  overflow: hidden;
+} 
+
+.glass:hover {
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+}
+
+.glass:after {
+  content: "";
+  position: absolute;
+  left: -350px; top: 0px; 
+  width: 200%; height: 100%;
+  background-image: 
+  linear-gradient(
+    122deg,
+    transparent 0%,
+    transparent 120px,
+    rgba(255, 255, 255, 0.6) 140px,
+    transparent 142px,
+    transparent 100%
+  ),
+  linear-gradient(
+    120deg,
+    transparent 0%,
+    transparent 170px,
+    rgba(255, 255, 255, 0.7) 252px,
+    transparent 254px,
+    transparent 100%
+  );
+}
+
+.glass:hover:after{
+  animation: move .6s linear forwards;
+}
+
+@keyframes move {
+  100% { transform: translate(550px); }
+}
+</style>
+<body>
+  <div class="glass"></div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Coding Minutes Simple Loading</title>
+</head>
+<style>
+.loading {
+  /* background: steelblue; */
+  width: 5em;
+  height: 5em;
+  border: 1em solid rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  border-top-color: currentColor;
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+  100% { transform: rotateZ(360deg); }
+}
+</style>
+<body>
+<section>
+  <div class="loading"></div>
+  <div class="loading" style="color: orange;"></div>
+  <div class="loading" style="color: deeppink; font-size: 20px;"></div>
+</section>
+</body>
+
+</html>
