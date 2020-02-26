@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Coding Minutes Progress Bar</title>
+</head>
+<style>
+body, html {
+  height: 100%;
+}
+
+body {
+  display: flex; justify-content: center; align-items: center;
+}
+
+.card {
+  width: 0.8em;
+  height: 1em;
+  text-align: center;
+  font-size: 260px;
+  font-weight: 700;
+  color: white;
+  position: relative;
+  perspective: 2em;
+}
+
+.up, .down {
+  position: absolute; left: 0; right: 0;
+  height: 48%; overflow: hidden;
+  transition: 2s linear all;
+  background: #444;
+}
+
+.up {
+  top: 0;
+  line-height: 100%; 
+  border-radius: 10px 10px 0 0;
+  transform-origin: 0 100%;
+}
+
+.down {
+  bottom: 0;
+  line-height: 0; 
+  border-radius: 0 0 10px 10px;
+  transform-origin: 0 0;
+}
+
+.active {
+  z-index: 10;
+}
+
+
+@keyframes up-move {
+  0% { transform: rotateX(0deg); opacity: 1; }
+  49% { transform: rotateX(-90deg); opacity: 1; }
+  50% { transform: rotateX(-90deg); opacity: 0; }
+  100% { transform: rotateX(-90deg); opacity: 0; }
+}
+
+@keyframes down-move {
+  0% { transform: rotateX(90deg); opacity: 0; }
+  50% { transform: rotateX(90deg); opacity: 0; }
+  51% { transform: rotateX(90deg); opacity: 1; }
+  100% { transform: rotateX(0deg); opacity: 1; }
+}
+
+</style>
+<body>
+
+<section class="card">
+  <div class="up active"></div>
+  <div class="down"></div>
+<!-- </section>
+<section class="card"> -->
+  <div class="up"></div>
+  <div class="down active"></div>
+</section>
+
+
+</body>
+<script>
+let n = -1;
+const upDoms = document.querySelectorAll('.up')
+const downDoms = document.querySelectorAll('.down')
+
+downDoms[1].addEventListener('animationend', function () {
+  tick()
+})
+
+function tick () {
+  n++
+  
+  downDoms[0].innerHTML = upDoms[0].innerHTML = (n + 1) % 10
+  upDoms[0].style.animation = downDoms[1].style.animation = ''
+
+  setTimeout(() => {
+    upDoms[0].style.animation = 'up-move 2s linear forwards'
+    downDoms[1].style.animation = 'down-move 2s linear forwards'
+    
+    downDoms[1].innerHTML = upDoms[1].innerHTML = (n + 2) % 10
+    
+  }, 0)
+}
+
+tick()
+
+
+</script>
+</html>
