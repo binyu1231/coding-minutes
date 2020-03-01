@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Coding Minutes Progress Bar</title>
+</head>
+<style>
+:root {
+  --progress-number: 50%;
+  --progress-string: "50%"
+}
+body {
+  height: 100vh; margin: 0;
+  display: flex; justify-content: center; align-items: center;
+  flex-direction: column;
+  background-image: 
+    radial-gradient(
+      rgba(100, 100, 100, 0.4) 0%, rgba(11, 11, 11, 1) 80%
+    ),
+    url(./4.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;;
+  background-position: center center, right top;
+  
+}
+
+.progress {
+  box-shadow: 0 0 30px #222, 0 0 10px #666 inset;
+  width: 800px; height: 120px;
+  border: 4px solid #fff; border-radius: 64px;
+  overflow: hidden;
+  margin: 100px auto; position: relative;
+}
+
+.position-center {
+  position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+  display: flex; justify-content: center; align-items: center;
+}
+
+.bar {
+  background: yellow; color: #555;
+  background-image: linear-gradient(
+    135deg, transparent 25%, rgba(0, 0, 0, 0.1) 0, rgba(0, 0, 0, 0.1) 50%, transparent 0, transparent 75%,
+    rgba(0, 0, 0, 0.1) 0
+  );
+  background-size: 120px; /* height */
+  clip-path: polygon(0 0, 0% 0, 0% 101%, 0 101%);
+  animation: 
+  move 2s linear infinite,
+  progress-grow 5s linear infinite;
+}
+
+@keyframes move {
+  100% { background-position-y: 120px; /* height */}
+}
+
+@keyframes progress-grow {
+  100% { clip-path: polygon(0 0, 100% 0, 100% 101%, 0 101%); }
+}
+
+/* .bar::after, .shadow::after {
+  content: var(--progress-string);
+} */
+
+.font {
+  font-size: 4em; font-weight: 900;
+}
+
+.shadow {
+  color: yellow;
+}
+
+h2 {
+  font-family: "苹方"; font-weight: 700;
+  font-size: 50px;
+  text-indent: -40px;
+  color: yellow;
+  text-shadow: 
+    0 0 2px #333,
+    0 0 2px #333,
+    0 0 2px #333,
+    0 0 2px #333,
+    0 0 2px #333;
+}
+
+</style>
+<body>
+<div class="progress">
+  <div class="shadow position-center font" style="text-shadow: 0 0 10px #333;">Coding Minutes</div>
+  <div class="bar position-center font" style="text-shadow: 0 0 10px #8e9300;">Coding Minutes</div>
+</div>
+<div>
+  <h2>
+    <b style="font-weight: 1200;">#4</b> 进度条君
+  </h2>
+</div>
+</body>
+<script>
+// let n = 0, rootStyle = document.documentElement.style
+
+// setInterval(function count () {
+//   n = n % 100 + 1
+//   rootStyle.setProperty('--progress-number', `${n}%`)
+//   rootStyle.setProperty('--progress-string', `"${n}%"`)
+// }, 100)
+</script>
+</html>

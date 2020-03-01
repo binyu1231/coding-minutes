@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Coding Minutes Progress Bar</title>
+</head>
+<style>
+body {
+  height: 100vh; margin: 0; font-family: '苹方';
+  display: flex; justify-content: center; align-items: center;
+  flex-direction: column;
+  background-image: 
+  radial-gradient(
+      rgba(0, 0, 0, 0.4) 0%, rgba(11, 11, 11, 1) 80%
+    ),
+    url(./5.jpg);
+    
+  ;
+  background-size: cover;
+}
+
+#app {
+  width: 100%;
+  display: flex; justify-content: center; align-items: center;
+  perspective: 3000px;
+}
+
+.card {
+  width: 1.4em;
+  height: 1.8em;
+  text-align: center;
+  font-size: 70px;
+  font-weight: 700;
+  color: white;
+  position: relative;
+  
+  
+  margin-right: 0.1em;
+  background: #ddd;
+  border-radius: 10px;
+}
+
+.up, .down {
+  position: absolute; left: 0; right: 0;
+  height: 49%; overflow: hidden;
+  transition: 2s linear all;
+  background-image: linear-gradient(
+    180deg,
+     #222135 30%,
+    #24233a 50% ,
+    #222135 70% 
+  );
+  /* background: #222135; */
+  border: 4px solid #ddd;
+  text-shadow:  1px 1px 1px #222;
+  box-sizing: border-box;
+  box-shadow: 0 0 4px #999;
+}
+
+.up {
+  top: 0;
+  line-height: 1.8em; 
+  border-radius: 10px 10px 0 0;
+  transform-origin: 0 100%;
+  border-bottom: 0;
+}
+
+.down {
+  bottom: 0;
+  line-height: 0; 
+  border-radius: 0 0 10px 10px;
+  transform-origin: 0 0;
+  border-top: 0;
+}
+
+.active {
+  z-index: 10;
+}
+
+.down.active {
+  transform: rotateX(90deg); opacity: 0;
+}
+
+@keyframes up-move {
+  0% { transform: rotateX(0deg); opacity: 1; }
+  49% { transform: rotateX(-90deg); opacity: 1; }
+  50% { transform: rotateX(-90deg); opacity: 0; }
+  100% { transform: rotateX(-90deg); opacity: 0; }
+}
+
+@keyframes down-move {
+  0% { transform: rotateX(90deg); opacity: 0; }
+  50% { transform: rotateX(90deg); opacity: 0; }
+  51% { transform: rotateX(90deg); opacity: 1; }
+  100% { transform: rotateX(0deg); opacity: 1; }
+}
+
+</style>
+<body>
+<div id="app">
+</div>
+
+</body>
+<script>
+
+var letterMartix = [
+  'Vivaldi In Hiphop',
+  'Bang! Bang! Bang!',
+  'Bride In Dream   ',
+  'by - BeautifulDay',
+]
+
+function getLetter (i, j) {
+  var countOfCard = 1
+  return (letterMartix[i][j * countOfCard] || '')
+}
+
+var maxCount = 17
+var appDom = document.getElementById('app')
+
+var cards = Array.from({ length: maxCount }).map(function (_, i) {
+  var times = 0
+
+  var card = document.createElement('div')
+  card.className = 'card'
+  card.innerHTML = 
+    '<div class="up active">' + getLetter(0, i) +'</div>'+ 
+    '<div class="down">' + getLetter(0, i) +'</div>' + 
+    '<div class="up"></div>' + 
+    '<div class="down active"></div>'
+  
+  appDom.appendChild(card)
+
+
+  var ups = [card.children[0], card.children[2]]    
+  var downs =  [card.children[1], card.children[3]]
+  
+
+  downs[1].addEventListener('animationend', tick)
+
+  function tick () {
+    if (times === 3) return
+    
+    const afterLetters = getLetter(times + 1, i)
+    const letters = getLetter(times, i)
+    downs[0].innerHTML = ups[0].innerHTML = letters
+    ups[0].style.animation = downs[1].style.animation = ''
+    
+    setTimeout(() => {
+      ups[0].style.animation = 'up-move ' + 3.5 + 's linear forwards'
+      downs[1].style.animation = 'down-move ' + 3.5 + 's linear forwards'
+      
+      downs[1].innerHTML = ups[1].innerHTML = afterLetters
+      
+    }, 0)
+
+    times++
+  }
+
+  setTimeout(tick)
+})
+</script>
+</html>
