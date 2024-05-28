@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  :root {
+  --grey-1: #fdfdfd;
+  --grey-1-a7: rgba(253, 253, 253, .7);
+  --grey-1-a5: rgba(253, 253, 253, .5);
+  --grey-1-a3: rgba(253, 253, 253, .3);
+}
+
+body {
+  background: #444;
+}
+
+.waves {
+  width: 100%;
+  min-height: 3.125rem;
+  max-height: 9.375rem;
+  position:relative;
+}
+
+.parallax>use {
+  animation: wave 25s cubic-bezier(.55, .5, .45, .5) infinite;
+}
+
+.parallax>use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+  fill: var(--grey-1-a7);
+}
+
+.parallax>use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+  fill: var(--grey-1-a5);
+}
+
+.parallax>use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+  fill: var(--grey-1-a3);
+}
+
+.parallax>use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+  fill: var(--grey-1);
+}
+
+@keyframes wave {
+  0% {
+    transform: translate3d(-90px, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(85px, 0, 0);
+  }
+}
+
+</style>
+<body>
+  <svg 
+  id="svg"
+  class="waves" 
+  viewBox="0 24 150 28" 
+  preserveAspectRatio="none" 
+  shape-rendering="auto">
+  <defs>
+    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+  </defs>
+  <g id="wave-group" class="parallax">
+    <!-- <use xlink:href="#gentle-wave" x="48" y="0" /> -->
+<!--    <use xlink:href="#gentle-wave" x="48" y="3" />
+     <use xlink:href="#gentle-wave" x="48" y="5" />
+    <use xlink:href="#gentle-wave" x="48" y="7" /> -->
+  </g>
+  <!-- <polygon stroke="black" fill="none"
+    points="
+      35,37.5 37.9,46.1 46.9,46.1 39.7,51.5
+      42.3,60.1 35,55 27.7,60.1 30.3,51.5
+      23.1,46.1 32.1,46.1" /> -->
+</svg>
+
+<script>
+(function () {
+  const svgNS = 'http://www.w3.org/2000/svg'
+  const xlinkNS = 'http://www.w3.org/2000/xlink'
+  const svgGroupDOM = document.getElementById('wave-group')
+  const svgDOM = document.getElementById('svg')
+
+  svgGroupDOM.style.width = '100%'
+  svgGroupDOM.style.height = '100%'
+
+  Array.from({ length: 3 }).map((_, i) => {
+    const svgUseDom = document.createElementNS(svgNS, 'use')
+    svgUseDom.setAttributeNS(xlinkNS, 'xlink:href', '#gentle-wave')
+    svgUseDom.setAttribute('x', 48)
+    svgUseDom.setAttribute('y', i * 2 + 1)
+
+    return svgUseDom
+  })
+  .forEach((waveDom) => {
+    svgNS.appendChild(waveDom)
+  })
+
+})()
+</script>
+</body>
+</html>
